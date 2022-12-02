@@ -14,6 +14,9 @@ class DioHttpClient implements HttpClient {
             response: e.response,
           );
 
+          // TODO - Handle this error that occurs when the internet is turned off
+          // SocketException: Failed host lookup: 'query2.finance.yahoo.com' (OS Error: No address associated with hostname, errno = 7)
+
           handler.next(e);
         },
       ),

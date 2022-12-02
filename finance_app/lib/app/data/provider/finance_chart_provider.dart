@@ -21,7 +21,11 @@ class FinanceChartProviderImpl implements FinanceChartProvider {
 
       return GetFinanceChartModel.fromMap(response);
     } on HttpClientException catch (e) {
-      var getFinanceChartModel = GetFinanceChartModel.fromMap(e.response.data);
+      var data = e.response?.data;
+
+      if (data == null) rethrow;
+
+      var getFinanceChartModel = GetFinanceChartModel.fromMap(data);
 
       var error = getFinanceChartModel.chart.error;
 

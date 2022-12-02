@@ -16,7 +16,7 @@ class AppErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(message),
+          Text(message, textAlign: TextAlign.center),
           if (onRetry != null)
             TextButton(
               onPressed: onRetry,
