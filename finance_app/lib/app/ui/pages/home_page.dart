@@ -1,3 +1,4 @@
+import 'package:finance_app/app/ui/theme/space.dart';
 import 'package:finance_app/app/ui/theme/text_styles.dart';
 import 'package:finance_app/app/ui/widgets/apple_logo/apple_logo_widget.dart';
 import 'package:get/get.dart';
@@ -18,13 +19,13 @@ class HomePage extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const AppleLogoWidget(),
-              const SizedBox(height: 16),
+              Space.vertical16,
               Text(
                 'Aplicativo para visualização em tempo real da ação da Apple (AAPL)',
                 style: TextStyles.normal,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
+              Space.vertical16,
               OutlinedButton(
                 onPressed: controller.pushChartPage,
                 child: Row(
@@ -45,7 +46,7 @@ class HomePage extends GetView<HomeController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text('Visualização em Tabela'),
-                    SizedBox(width: 8),
+                    Space.horizontal8,
                     const Icon(Icons.table_chart_outlined)
                   ],
                 ),

@@ -1,2 +1,3 @@
-- Isolar text styles em um único arquivo
-- Padronizar espaçamentos SizedBox(8, 16, 24, 32, 40, 48)
+
+
+Flutter SDK utilizado: 3.3.9

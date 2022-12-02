@@ -1,4 +1,5 @@
 import 'package:finance_app/app/controllers/chart/chart_controller.dart';
+import 'package:finance_app/app/ui/theme/space.dart';
 import 'package:finance_app/app/ui/theme/text_styles.dart';
 import 'package:finance_app/app/ui/widgets/app_error_widget/app_error_widget.dart';
 import 'package:finance_app/app/ui/widgets/apple_logo/apple_logo_widget.dart';
@@ -26,7 +27,7 @@ class ChartPagePage extends GetView<ChartController> {
               child: Column(
                 children: [
                   const AppleLogoWidget(),
-                  const SizedBox(height: 8),
+                  Space.vertical8,
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
@@ -42,7 +43,7 @@ class ChartPagePage extends GetView<ChartController> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  Space.vertical8,
                   Text(
                     'Variação dessa ação hoje',
                     style: TextStyles.normal,
@@ -58,7 +59,7 @@ class ChartPagePage extends GetView<ChartController> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  Space.vertical16,
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -78,7 +79,7 @@ class ChartPagePage extends GetView<ChartController> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  Space.vertical16,
                   Obx(
                     () {
                       if (controller.isRefreshing.value) {
@@ -89,10 +90,10 @@ class ChartPagePage extends GetView<ChartController> {
                         onPressed: controller.reload,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Icon(Icons.refresh),
-                            SizedBox(width: 8),
-                            Text('Atualizar'),
+                          children: [
+                            const Icon(Icons.refresh),
+                            Space.horizontal8,
+                            const Text('Atualizar'),
                           ],
                         ),
                       );
