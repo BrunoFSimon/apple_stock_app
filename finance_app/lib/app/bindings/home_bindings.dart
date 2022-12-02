@@ -7,7 +7,7 @@ class HomeBindings implements Bindings {
   void dependencies() {
     Get.put(
       HomeController(
-          repository: Get.find(), arguments: HomeArguments(symbol: 'PET4.SA')),
+          repository: Get.find(), arguments: HomeArguments(symbol: 'PETr4.SA')),
     );
   }
 }
