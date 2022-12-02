@@ -6,8 +6,7 @@ class HomeBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(
-      HomeController(
-          repository: Get.find(), arguments: HomeArguments(symbol: 'PETr4.SA')),
+      HomeController(arguments: HomeArguments()),
     );
   }
 }

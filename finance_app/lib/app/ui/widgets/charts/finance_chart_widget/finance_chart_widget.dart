@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:finance_app/app/shared/extensions/double_list_extensions.dart';
 
 class FinanceChartItem {
-  final double value;
+  final String value;
   final int day;
   final int month;
 
@@ -16,10 +16,16 @@ class FinanceChartItem {
 
 class FinanceChartWidget extends StatefulWidget {
   final List<FinanceChartItem> items;
+  final String currencyCode;
+  final String currentValue;
+  final String variation;
 
   const FinanceChartWidget({
     super.key,
     required this.items,
+    required this.currencyCode,
+    required this.currentValue,
+    required this.variation,
   });
 
   @override
@@ -28,7 +34,15 @@ class FinanceChartWidget extends StatefulWidget {
 
 class _LineChartSample2State extends State<FinanceChartWidget> {
   double get getMaxXAxys {
-    return widget.items.length.toDouble() - 1;
+    return widget.items.length.toDouble();
+  }
+
+  double get getMinYAxys {
+    var doubleValues = widget.items.map((item) => item.value);
+
+    var lowestValue = doubleValues.getLowestValue();
+
+    return lowestValue;
   }
 
   double get getMaxYAxys {
@@ -39,56 +53,24 @@ class _LineChartSample2State extends State<FinanceChartWidget> {
     return highestDoubleValue;
   }
 
-  List<FinanceChartItem> get getItemsOrderedByDay => widget.items
-      .map((item) =>
-          FinanceChartItem(value: item.value, day: item.day, month: item.month))
-      .toList()
-    ..sort((a, b) => a.day.compareTo(b.day));
-
   List<FinanceChartItem> get getItemsOrderedByValue => widget.items
       .map((item) =>
           FinanceChartItem(value: item.value, day: item.day, month: item.month))
       .toList()
     ..sort((a, b) => a.value.compareTo(b.value));
 
-  List<Color> gradientColors = [
-    Colors.transparent.withOpacity(0),
-    Colors.red,
-  ];
+  List<Color> get gradientColors => [Colors.black.withOpacity(0), Colors.white];
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.70,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  blurRadius: 2,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: 18,
-                left: 12,
-                top: 24,
-                bottom: 12,
-              ),
-              child: LineChart(
-                swapAnimationCurve: Curves.linear,
-                swapAnimationDuration: const Duration(milliseconds: 250),
-                buildData(),
-              ),
-            ),
+          aspectRatio: 1.5,
+          child: LineChart(
+            swapAnimationCurve: Curves.linear,
+            swapAnimationDuration: const Duration(milliseconds: 250),
+            buildData(),
           ),
         ),
       ],
@@ -98,45 +80,37 @@ class _LineChartSample2State extends State<FinanceChartWidget> {
   TextStyle get getTextStyle {
     return const TextStyle(
       color: Colors.grey,
-      fontWeight: FontWeight.bold,
-      fontSize: 16,
+      fontWeight: FontWeight.normal,
+      fontSize: 14,
     );
   }
 
   Widget buildDays(double value, TitleMeta meta) {
-    if (getItemsOrderedByDay.length - 1 > value) {
-      var day = getItemsOrderedByDay[value.toInt()].day;
-      var month = getItemsOrderedByDay[value.toInt()].month;
-      return SideTitleWidget(
-        axisSide: meta.axisSide,
-        child: Text('$day/$month', style: getTextStyle),
-      );
-    }
+    var day = widget.items[value.toInt()].day;
+    var month = widget.items[value.toInt()].month;
 
-    return const SizedBox.shrink();
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: Text('$day/$month', style: getTextStyle),
+    );
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    var firstMark = (getMaxYAxys * 0.1).toInt();
-    var seccondMark = (getMaxYAxys * 0.55).toInt();
-    var thirdMark = (getMaxYAxys * 1).toInt();
+    String? text;
 
-    String text;
-
-    if (value == firstMark) {
-      text = firstMark.toStringAsFixed(0);
-    } else if (value == seccondMark) {
-      text = seccondMark.toStringAsFixed(0);
-    } else if (value == thirdMark) {
-      text = thirdMark.toStringAsFixed(0);
-    } else {
-      return const SizedBox.shrink();
+    if (value == meta.max) {
+      text = meta.max.toStringAsFixed(0);
+    } else if (value == meta.min) {
+      text = meta.min.toStringAsFixed(0);
     }
 
-    return Text(text, style: getTextStyle);
-  }
+    var midValue = ((meta.max + meta.min) / 2).ceil();
+    if (value == midValue) text = midValue.toStringAsFixed(0);
 
-  double get test => (getMaxYAxys - getMaxYAxys.toInt());
+    if (text != null) return Text(text, style: getTextStyle);
+
+    return const SizedBox.shrink();
+  }
 
   LineChartData buildData() {
     return LineChartData(
@@ -167,10 +141,19 @@ class _LineChartSample2State extends State<FinanceChartWidget> {
           sideTitles: SideTitles(showTitles: false),
         ),
         bottomTitles: AxisTitles(
+          axisNameSize: 30,
+          axisNameWidget: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              'Pressione o gráfico para visualização detalhada',
+              textAlign: TextAlign.center,
+              style: getTextStyle.copyWith(fontWeight: FontWeight.normal),
+            ),
+          ),
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 30,
-            interval: 7,
+            interval: 8,
             getTitlesWidget: buildDays,
           ),
         ),
@@ -179,22 +162,19 @@ class _LineChartSample2State extends State<FinanceChartWidget> {
             showTitles: true,
             interval: 1,
             getTitlesWidget: leftTitleWidgets,
-            reservedSize: 30,
+            reservedSize: 35,
           ),
         ),
       ),
       borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: Colors.black.withOpacity(0.4)),
+        show: false,
+        border: Border.all(color: Colors.black.withOpacity(0.1)),
       ),
-      minX: 0,
-      maxX: getMaxXAxys.ceilToDouble(),
-      minY: 0,
-      maxY: getMaxYAxys.ceilToDouble(),
       lineBarsData: [
         LineChartBarData(
           spots: getFlSpots,
-          color: Colors.red.withOpacity(0.5),
+          isCurved: true,
+          color: Colors.white.withOpacity(1),
           barWidth: 1,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -215,7 +195,12 @@ class _LineChartSample2State extends State<FinanceChartWidget> {
     );
   }
 
-  List<FlSpot> get getFlSpots => getItemsOrderedByDay
-      .map((e) => FlSpot(e.day.toDouble() - 1, e.value))
-      .toList();
+  List<FlSpot> get getFlSpots {
+    var list = widget.items
+        .map((e) =>
+            FlSpot(widget.items.indexOf(e).toDouble(), double.parse(e.value)))
+        .toList();
+
+    return list;
+  }
 }

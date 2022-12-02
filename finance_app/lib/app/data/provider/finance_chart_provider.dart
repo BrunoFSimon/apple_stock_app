@@ -1,4 +1,4 @@
-import 'package:finance_app/app/data/model/get_finance_chart_model.dart';
+import 'package:finance_app/app/data/provider/responses/get_finance_chart_response.dart';
 import 'package:finance_app/app/shared/http/http_client.dart';
 import 'package:finance_app/app/shared/http/http_client_exception.dart';
 
@@ -15,7 +15,7 @@ class FinanceChartProviderImpl implements FinanceChartProvider {
   Future<GetFinanceChartModel> getFinanceChart(String symbol) async {
     try {
       var url =
-          'https://query2.finance.yahoo.com/v8/finance/chart/$symbol?metrics=high&interval=1d&range=5d';
+          'https://query2.finance.yahoo.com/v8/finance/chart/$symbol?metrics=open?&interval=1d&range=30d';
 
       var response = await _client.get(url);
 

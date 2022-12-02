@@ -20,7 +20,7 @@ class AppErrorWidget extends StatelessWidget {
           if (onRetry != null)
             TextButton(
               onPressed: onRetry,
-              child: const Text('Retry'),
+              child: const Text('Tentar novamente'),
             ),
         ],
       ),
