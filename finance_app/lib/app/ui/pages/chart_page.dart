@@ -1,5 +1,7 @@
 import 'package:finance_app/app/controllers/chart/chart_controller.dart';
+import 'package:finance_app/app/ui/theme/text_styles.dart';
 import 'package:finance_app/app/ui/widgets/app_error_widget/app_error_widget.dart';
+import 'package:finance_app/app/ui/widgets/apple_logo/apple_logo_widget.dart';
 import 'package:finance_app/app/ui/widgets/charts/finance_chart_widget/finance_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,9 +12,7 @@ class ChartPagePage extends GetView<ChartController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
+      appBar: AppBar(),
       body: controller.obx(
         (state) {
           var result = state;
@@ -25,20 +25,7 @@ class ChartPagePage extends GetView<ChartController> {
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 100),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.apple,
-                    color: Colors.grey,
-                    size: 50,
-                  ),
-                  const Text(
-                    'AAPL',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  const AppleLogoWidget(),
                   const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -47,26 +34,18 @@ class ChartPagePage extends GetView<ChartController> {
                     ),
                     child: Column(
                       children: [
-                        const Text('Preço Atual',
-                            style: TextStyle(
-                              color: Colors.grey,
-                            )),
+                        Text('Preço Atual', style: TextStyles.normal),
                         Text(
                           '${result.currentValue} ${result.currencyCode}',
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 24,
-                          ),
+                          style: TextStyles.normalBig,
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'Variação dessa ação hoje',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
+                    style: TextStyles.normal,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,10 +54,7 @@ class ChartPagePage extends GetView<ChartController> {
                       // Icon(Icons.arrow_upward),
                       Text(
                         '${result.variation} ${result.currencyCode}',
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 24,
-                        ),
+                        style: TextStyles.normalBig,
                       ),
                     ],
                   ),
