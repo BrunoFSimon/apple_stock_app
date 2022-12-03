@@ -5,7 +5,7 @@ import 'package:finance_app/app/shared/navigator/navigator.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  final HomeArguments arguments; // TODO - explain it
+  final HomeArguments arguments;
 
   HomeController({required this.arguments});
 

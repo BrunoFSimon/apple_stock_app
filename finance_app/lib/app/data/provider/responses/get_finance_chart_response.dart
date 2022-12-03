@@ -1,10 +1,10 @@
-class GetFinanceChartModel {
+class GetFinanceChartResponse {
   final ChartModel chart;
 
-  GetFinanceChartModel({required this.chart});
+  GetFinanceChartResponse({required this.chart});
 
-  factory GetFinanceChartModel.fromMap(Map<String, dynamic> map) {
-    return GetFinanceChartModel(
+  factory GetFinanceChartResponse.fromMap(Map<String, dynamic> map) {
+    return GetFinanceChartResponse(
       chart: ChartModel.fromMap(map['chart']),
     );
   }

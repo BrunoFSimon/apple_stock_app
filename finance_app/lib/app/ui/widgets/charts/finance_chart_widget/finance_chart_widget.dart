@@ -40,7 +40,7 @@ class _LineChartSample2State extends State<FinanceChartWidget> {
   double get getMinYAxys {
     var doubleValues = widget.items.map((item) => item.value);
 
-    var lowestValue = doubleValues.getLowestValue();
+    var lowestValue = doubleValues.getLowestDoubleValue();
 
     return lowestValue;
   }

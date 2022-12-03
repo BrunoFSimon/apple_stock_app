@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Explicação
+/// Classe utilizada para padronizar espaçamentos entre widgets
 class Space {
   static get vertical8 => const SizedBox(height: 8);
   static get vertical16 => const SizedBox(height: 16);

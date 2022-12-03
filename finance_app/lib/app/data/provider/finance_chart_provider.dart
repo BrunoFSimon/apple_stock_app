@@ -3,7 +3,7 @@ import 'package:finance_app/app/shared/http/http_client.dart';
 import 'package:finance_app/app/shared/http/http_client_exception.dart';
 
 abstract class FinanceChartProvider {
-  Future<GetFinanceChartModel> getFinanceChart(String symbol);
+  Future<GetFinanceChartResponse> getFinanceChart(String symbol);
 }
 
 class FinanceChartProviderImpl implements FinanceChartProvider {
@@ -12,20 +12,20 @@ class FinanceChartProviderImpl implements FinanceChartProvider {
   FinanceChartProviderImpl(this._client);
 
   @override
-  Future<GetFinanceChartModel> getFinanceChart(String symbol) async {
+  Future<GetFinanceChartResponse> getFinanceChart(String symbol) async {
     try {
       var url =
           'https://query2.finance.yahoo.com/v8/finance/chart/$symbol?metrics=open?&interval=1d&range=30d';
 
       var response = await _client.get(url);
 
-      return GetFinanceChartModel.fromMap(response);
+      return GetFinanceChartResponse.fromMap(response);
     } on HttpClientException catch (e) {
       var data = e.response?.data;
 
       if (data == null) rethrow;
 
-      var getFinanceChartModel = GetFinanceChartModel.fromMap(data);
+      var getFinanceChartModel = GetFinanceChartResponse.fromMap(data);
 
       var error = getFinanceChartModel.chart.error;
 

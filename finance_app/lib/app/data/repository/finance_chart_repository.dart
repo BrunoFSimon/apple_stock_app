@@ -46,6 +46,8 @@ class FinanceChartRepositoryImpl implements FinanceChartRepository {
     return result;
   }
 
+  /// It takes the previous value and the current value
+  /// and calculates the variation between them
   String _resolveVariation(List<double?> openList, double curentValue) {
     var pastValue = openList.lastWhere((element) => element != null);
 
@@ -55,10 +57,13 @@ class FinanceChartRepositoryImpl implements FinanceChartRepository {
 
     var variation = (pastValue - curentValue).abs();
 
-    if (variation > 0) return '+${variation.toStringAsFixed(2)}';
-    return '-${variation.toStringAsFixed(2)}';
+    var mathSymbol = variation > 0 ? '+' : '-';
+
+    return '$mathSymbol${variation.toStringAsFixed(2)}';
   }
 
+  /// It takes the first value found before the current value
+  /// in cases when the current value is null
   String _resolveValue(
       MapEntry<int, double?> mapEntry, Map<int, double?> itemsMap) {
     var value = mapEntry.value;
@@ -68,6 +73,7 @@ class FinanceChartRepositoryImpl implements FinanceChartRepository {
     return _getPreviousValue(mapEntry.key, itemsMap);
   }
 
+  /// [_resolveValue]'s helper function
   String _getPreviousValue(int key, Map<int, double?> itemsMap) {
     var previousKey = itemsMap.keys.firstWhere((k) => k < key, orElse: () => 0);
 

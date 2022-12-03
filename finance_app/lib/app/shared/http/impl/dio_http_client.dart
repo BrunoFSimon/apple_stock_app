@@ -9,6 +9,9 @@ class DioHttpClient implements HttpClient {
     _client.interceptors.add(
       InterceptorsWrapper(
         onError: (DioError e, handler) {
+          /// Explicação
+          /// A instanciação abaixo ficaria melhor no método [_handleException()]
+          /// mas para demonstrar o conceito de interceptor deixei aqui
           e.error = HttpClientException(
             httpStatusErrorMessage: e.message,
             response: e.response,
@@ -51,7 +54,10 @@ class DioHttpClient implements HttpClient {
     }
   }
 
-  // TODO - explain it
+  /// Explicação
+  /// Ao interceptar o erro do Dio, o mesmo é convertido para um [HttpClientException]
+  /// através deste ErrorHandler inserido nos métodos get, post, etc.
+  /// Para facilitar o tratamento dos erros nas controllers.
   HttpClientException _handleDioError(DioError e) {
     var error = e.error;
     if (error is HttpClientException) return error;

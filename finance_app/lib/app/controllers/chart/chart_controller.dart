@@ -22,6 +22,10 @@ class ChartController extends GetxController
     super.onInit();
   }
 
+  /// Explicação
+  /// Nesta controller utilizei o [StateMixin] para gerenciar o estado geral
+  /// da tela e a propriedade [RxBool isRefreshing] para gerenciar o estado
+  /// do refresh para não precisar ocultar o gráfico enquanto o refresh é realizado.
   Future<void> _fetch(String symbol) async {
     try {
       var response = await repository.getFinanceChart(symbol);
@@ -36,6 +40,11 @@ class ChartController extends GetxController
     _fetch(arguments.symbol).whenComplete(() => isRefreshing.value = false);
   }
 
+  /// Explicação
+  /// Ao falhar a requisição que busca os dados do gráfico, o widget [AppErrorWidget]
+  /// é exibido através do método [onError] fornecido pelo [GetX-StateMixin].
+  ///
+  /// Este widget recebe a função abaixo como parâmetro para tentar carregar os dados novamente.
   void retry() {
     change(null, status: RxStatus.loading());
     _fetch(arguments.symbol);
