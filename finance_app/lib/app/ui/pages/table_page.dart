@@ -38,7 +38,7 @@ class TablePage extends GetView<TableController> {
                       style: TextStyles.normal),
                   Space.vertical24,
                   _GridViewItem(
-                    childAspectRatio: 2,
+                    childAspectRatio: 1.5,
                     children: [
                       Center(
                         child: Text(

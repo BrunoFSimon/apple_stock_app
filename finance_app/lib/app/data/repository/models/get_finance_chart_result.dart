@@ -88,7 +88,7 @@ String _getPercentVariation(double? currentValue, double? dayBeforeValue) {
   if (currentDay == null) return '-';
   if (dayBefore == null) return '-';
 
-  var result = ((dayBefore - currentDay) * 100) / currentDay;
+  var result = ((currentDay - dayBefore) * 100) / currentDay;
 
   return '${result.toCurrencyString()}%';
 }
