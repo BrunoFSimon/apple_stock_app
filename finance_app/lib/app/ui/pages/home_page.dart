@@ -1,6 +1,7 @@
 import 'package:finance_app/app/ui/theme/space.dart';
 import 'package:finance_app/app/ui/theme/text_styles.dart';
 import 'package:finance_app/app/ui/widgets/apple_logo/apple_logo_widget.dart';
+import 'package:finance_app/app/ui/widgets/buttons/app_outlined_icon_button.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/home/home_controller.dart';
@@ -26,30 +27,15 @@ class HomePage extends GetView<HomeController> {
                 textAlign: TextAlign.center,
               ),
               Space.vertical16,
-              OutlinedButton(
-                onPressed: controller.pushChartPage,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text('Visualização em Gráfico'),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Icon(Icons.graphic_eq_outlined)
-                  ],
-                ),
-              ),
+              AppOutlinedIconButton(
+                  icon: Icons.graphic_eq_outlined,
+                  onPressed: controller.pushChartPage,
+                  title: 'Visualização em Gráfico'),
               const SizedBox(height: 4),
-              OutlinedButton(
+              AppOutlinedIconButton(
+                icon: Icons.table_chart_outlined,
                 onPressed: controller.pushChartPage,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('Visualização em Tabela'),
-                    Space.horizontal8,
-                    const Icon(Icons.table_chart_outlined)
-                  ],
-                ),
+                title: 'Visualização em Tabela',
               ),
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:finance_app/app/ui/theme/space.dart';
 import 'package:finance_app/app/ui/theme/text_styles.dart';
 import 'package:finance_app/app/ui/widgets/app_error_widget/app_error_widget.dart';
 import 'package:finance_app/app/ui/widgets/apple_logo/apple_logo_widget.dart';
+import 'package:finance_app/app/ui/widgets/buttons/app_outlined_icon_button.dart';
 import 'package:finance_app/app/ui/widgets/charts/finance_chart_widget/finance_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,9 +23,9 @@ class ChartPagePage extends GetView<ChartController> {
 
           return SafeArea(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 100),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const AppleLogoWidget(),
                   Space.vertical8,
@@ -60,23 +61,21 @@ class ChartPagePage extends GetView<ChartController> {
                     ],
                   ),
                   Space.vertical16,
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FinanceChartWidget(
-                        currencyCode: result.currencyCode,
-                        currentValue: result.currentValue,
-                        variation: result.variation,
-                        items: result.items
-                            .map(
-                              (e) => FinanceChartItem(
-                                value: e.value,
-                                day: e.date.day,
-                                month: e.date.month,
-                              ),
-                            )
-                            .toList(),
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FinanceChartWidget(
+                      currencyCode: result.currencyCode,
+                      currentValue: result.currentValue,
+                      variation: result.variation,
+                      items: result.items
+                          .map(
+                            (e) => FinanceChartItem(
+                              value: e.value,
+                              day: e.date.day,
+                              month: e.date.month,
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
                   Space.vertical16,
@@ -86,16 +85,10 @@ class ChartPagePage extends GetView<ChartController> {
                         return const RefreshProgressIndicator();
                       }
 
-                      return OutlinedButton(
+                      return AppOutlinedIconButton(
                         onPressed: controller.reload,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.refresh),
-                            Space.horizontal8,
-                            const Text('Atualizar'),
-                          ],
-                        ),
+                        icon: Icons.refresh,
+                        title: 'Atualizar',
                       );
                     },
                   ),
