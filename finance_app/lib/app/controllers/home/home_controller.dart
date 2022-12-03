@@ -1,5 +1,6 @@
 import 'package:finance_app/app/controllers/chart/chart_arguments.dart';
 import 'package:finance_app/app/controllers/home/home_arguments.dart';
+import 'package:finance_app/app/controllers/table/table_arguments.dart';
 import 'package:finance_app/app/routes/app_pages.dart';
 import 'package:finance_app/app/shared/navigator/navigator.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,13 @@ class HomeController extends GetxController {
     Navigator.pushPageNamed(
       arguments: ChartArguments(symbol: 'AAPL'),
       route: Routes.chart,
+    );
+  }
+
+  void pushTablePage() {
+    Navigator.pushPageNamed(
+      arguments: TableArguments(symbol: 'AAPL'),
+      route: Routes.table,
     );
   }
 }

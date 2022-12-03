@@ -1,4 +1,5 @@
 import 'package:finance_app/app/controllers/chart/chart_controller.dart';
+import 'package:finance_app/app/shared/extensions/double_extension.dart';
 import 'package:finance_app/app/ui/theme/space.dart';
 import 'package:finance_app/app/ui/theme/text_styles.dart';
 import 'package:finance_app/app/ui/widgets/app_error_widget/app_error_widget.dart';
@@ -36,7 +37,7 @@ class ChartPagePage extends GetView<ChartController> {
                     ),
                     child: Column(
                       children: [
-                        Text('Preço Atual', style: TextStyles.normal),
+                        Text('Preço Nesse Instante', style: TextStyles.normal),
                         Text(
                           '${result.currentValue} ${result.currencyCode}',
                           style: TextStyles.normalBig,
@@ -46,7 +47,7 @@ class ChartPagePage extends GetView<ChartController> {
                   ),
                   Space.vertical8,
                   Text(
-                    'Variação dessa ação hoje',
+                    'Variação',
                     style: TextStyles.normal,
                   ),
                   Row(
@@ -55,22 +56,26 @@ class ChartPagePage extends GetView<ChartController> {
                     children: [
                       // Icon(Icons.arrow_upward),
                       Text(
-                        '${result.variation} ${result.currencyCode}',
+                        '${result.items.last.getDayBeforeVariation} ${result.currencyCode}',
                         style: TextStyles.normalBig,
                       ),
                     ],
+                  ),
+                  Text(
+                    'Valor em relação a última abertura',
+                    style: TextStyles.verySmall,
                   ),
                   Space.vertical16,
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FinanceChartWidget(
                       currencyCode: result.currencyCode,
-                      currentValue: result.currentValue,
-                      variation: result.variation,
+                      currentValue: result.currentValue.toCurrencyString(),
+                      variation: result.items.last.dayBeforeFormatedValue,
                       items: result.items
                           .map(
                             (e) => FinanceChartItem(
-                              value: e.value,
+                              value: e.getFormatedValue,
                               day: e.date.day,
                               month: e.date.month,
                             ),

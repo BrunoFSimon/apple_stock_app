@@ -1,7 +1,9 @@
 import 'package:finance_app/app/bindings/chart_bindings.dart';
 import 'package:finance_app/app/bindings/home_bindings.dart';
+import 'package:finance_app/app/bindings/table_bindings.dart';
 import 'package:finance_app/app/ui/pages/chart_page.dart';
 import 'package:finance_app/app/ui/pages/home_page.dart';
+import 'package:finance_app/app/ui/pages/table_page.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
 part './app_routes.dart';
@@ -17,6 +19,11 @@ class AppPages {
       name: Routes.chart,
       page: () => const ChartPagePage(),
       binding: ChartBindings(),
+    ),
+    GetPage(
+      name: Routes.table,
+      page: () => const TablePage(),
+      binding: TableBinding(),
     ),
   ];
 }

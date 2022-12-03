@@ -34,7 +34,7 @@ class HomePage extends GetView<HomeController> {
               const SizedBox(height: 4),
               AppOutlinedIconButton(
                 icon: Icons.table_chart_outlined,
-                onPressed: controller.pushChartPage,
+                onPressed: controller.pushTablePage,
                 title: 'Visualização em Tabela',
               ),
             ],
